@@ -32,20 +32,20 @@
                  $.each(data.result, function (index, value) {
                      const date = new Date(value.timeStamp * 1000);
 
-                     html = '<tr>'+
+                     html += '<tr>'+
                                 '<td>'+
                                     +value.blockNumber+
                                 '</td>'+
-                                    '<td>'
+                                '<td>'
                                     +value.hash.toString()+
                                 '</td>'+
-                                    '<td>'+
+                                '<td>'+
                                     +value.gasUsed+
                                 '</td>'+
-                                    '<td>'+
+                                '<td>'+
                                     '3.5 ETH'+
                                 '</td>'+
-                                    '<td>'
+                                '<td>'
                                     +date.toLocaleTimeString()+
                                 '</td>'+
                             '</tr>';
@@ -54,7 +54,11 @@
                         tokens.push(value);
                     }
 
-                 });
+                });
+
+                if (data.result.length == 0) {
+                    html = '<tr><td colspan="5">No records found!</td></tr>'
+                }
 
                  $('#test-token').append(html);
 
@@ -76,27 +80,31 @@
                      
                     const date = new Date(value.timeStamp * 1000);
             
-                     html = '<tr>'+
+                     html += '<tr>'+
                                 '<td>'+
                                     +value.blockNumber+
                                 '</td>'+
-                                    '<td>'
+                                '<td>'
                                     +value.hash.toString()+
                                 '</td>'+
-                                    '<td>'+
+                                '<td>'+
                                     +value.gasUsed+
                                 '</td>'+
-                                    '<td>'+
+                                '<td>'+
                                     '3.5 ETH'+
                                 '</td>'+
-                                    '<td>'
+                                '<td>'
                                     +date.toLocaleTimeString()+
                                 '</td>'+
                          '</tr>';
                      
                     console.log(html);
 
-                 });
+                });
+
+                if (data.result.length == 0) {
+                    html = '<tr><td colspan="5">No records found!</td></tr>'
+                }
                  
                  $('#test-token tbody').append(html);
              }

@@ -24,38 +24,34 @@ function mainNetToken(api_url, element_id) {
         function (data) {
             if (data.status) {
 
-                tokens = data.result;
-
                 var html = ''
+
                 $.each(data.result, function (index, value) {
                     const date = new Date(value.timeStamp * 1000);
-                    html = '<tr>'+
+                    html += '<tr>'+
                                 '<td>'
                                     +value.blockNumber+
                                 '</td>'+
-                                    '<td>'
+                                '<td>'
                                     +value.hash.toString()+
                                 '</td>'+
-                                    '<td>'
+                                '<td>'
                                     +value.gasUsed+
                                 '</td>'+
-                                    '<td>'+
+                                '<td>'+
                                     '3.5 ETH'+
                                 '</td>'+
-                                    '<td>'
+                                '<td>'
                                     +date.toLocaleTimeString()+
                                 '</td>'+
                             '</tr>';
-                    
-                    if (!$.inArray(tokens,value)) {
-                        tokens.push(value);
-                    }
-
                 });
 
-                $('#main-table').append(html);
+                if (data.result.length == 0) {
+                    html = '<tr><td colspan="5">No records found!</td></tr>'
+                }
 
-                // tokens.push(data.result)
+                $('#main-table').append(html);
             }
         });
 }
@@ -68,39 +64,34 @@ function mainNetRollup(api_url, element_id) {
             if (data.status) {
                 var html = ''
                 $.each(data.result, function (index, value) {
-                const date = new Date(value.timeStamp * 1000);
-                    // var block_number = value.blockNumber
-                    // var block_api = "https://api-ropsten.etherscan.io/api?module=block&action=getblockreward&blockno=" + block_number + "&apikey=9439IK1Y6D6UZFBN298YATMAAAXD3XSIVS"
-                    // var reward = ""
+                    const date = new Date(value.timeStamp * 1000);
 
-                    // $.get(block_api, function (data) {
-                    //     if (data) {
-                    //         reward = data.result.blockReward
-                    //     }
-
-                    // });
-
-                    html = '<tr>'+
+                    html += '<tr>'+
                                 '<td>'
                                     +value.blockNumber+
                                 '</td>'+
-                                    '<td>'
+                                '<td>'
                                     +value.hash.toString()+
                                 '</td>'+
-                                    '<td>'
+                                '<td>'
                                     +value.gasUsed+
                                 '</td>'+
-                                    '<td>'+
+                                '<td>'+
                                     '3.5 ETH'+
                                 '</td>'+
-                                    '<td>'
+                                '<td>'
                                     +date.toLocaleTimeString()+
                                 '</td>'+
                             '</tr>';
 
                 });
 
-                $('#main-table').append(html);
+                if (data.result.length == 0) {
+                    html = '<tr><td colspan="5">No records found!</td></tr>'
+                }
+
+                $('#main-table').html(html);
+
             }
         });
 }

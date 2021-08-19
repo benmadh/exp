@@ -84,6 +84,10 @@ function bnbPegToken(api_url, element_id) {
 
                 });
 
+                if (data.result.length == 0) {
+                    html = '<div>No records found!</div>'
+                }
+
                 $(element_id).append(html);
                 
             }
@@ -149,6 +153,10 @@ function bnbPegRollup(api_url, element_id) {
                         '</div>';
 
                 });
+
+                if (data.result.length == 0) {
+                    html = '<div>No records found!</div>'
+                }
 
                 $(element_id).append(html);
             }
