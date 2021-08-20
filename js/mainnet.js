@@ -1,6 +1,7 @@
 // mainnet rollups
 $('#mainnet-token').click(function () {
-    $('#main-table').html("");
+    mainNetTab = 'token';
+    $('#main-table tbody').html("");
     let element_id = '#main-table';
     let api_url = "https://api.etherscan.io/api?module=account&action=txlist&address=0x1da4858ad385cc377165a298cc2ce3fce0c5fd31&startblock=0&endblock=99999999&sort=asc&apikey=9439IK1Y6D6UZFBN298YATMAAAXD3XSIVS"
 
@@ -9,7 +10,10 @@ $('#mainnet-token').click(function () {
 
 // mainnet rolls ups
 $('#mainnet-rollup').click(function () {
-    $('#main-table').html("");
+    mainNetTab = 'rollup';
+    console.log("Click Triggered");
+    
+    $('#main-table tbody').html("");
     let element_id = '#main-table';
     let api_url = "https://api.etherscan.io/api?module=account&action=txlistinternal&address=0x2C7716BDf98e181df4CF1b40aD7648A40EE813b9&startblock=0&endblock=999999999&sort=asc&apikey=9439IK1Y6D6UZFBN298YATMAAAXD3XSIVS"
     
@@ -20,6 +24,8 @@ $('#mainnet-rollup').click(function () {
 // mainnet 
 function mainNetToken(api_url, element_id) {
 
+    console.log('Search Term', searchToken);
+
     $.get(api_url,
         function (data) {
             if (data.status) {
@@ -28,7 +34,9 @@ function mainNetToken(api_url, element_id) {
 
                 $.each(data.result, function (index, value) {
                     const date = new Date(value.timeStamp * 1000);
-                    html += '<tr>'+
+                    if (searchToken != '') {
+                        if (searchToken == value.hash.toString()) {
+                            html += '<tr>'+
                                 '<td>'
                                     +value.blockNumber+
                                 '</td>'+
@@ -45,13 +53,35 @@ function mainNetToken(api_url, element_id) {
                                     +date.toLocaleTimeString()+
                                 '</td>'+
                             '</tr>';
+                        }
+                    } else {
+                        html += '<tr>'+
+                                    '<td>'
+                                        +value.blockNumber+
+                                    '</td>'+
+                                    '<td>'
+                                        +value.hash.toString()+
+                                    '</td>'+
+                                    '<td>'
+                                        +value.gasUsed+
+                                    '</td>'+
+                                    '<td>'+
+                                        '3.5 ETH'+
+                                    '</td>'+
+                                    '<td>'
+                                        +date.toLocaleTimeString()+
+                                    '</td>'+
+                                '</tr>';
+                    }
                 });
 
                 if (data.result.length == 0) {
                     html = '<tr><td colspan="5">No records found!</td></tr>'
+                } else if (html == '') {
+                    html = '<tr><td colspan="5">No records found!</td></tr>'
                 }
 
-                $('#main-table').append(html);
+                $('#main-table tbody').append(html);
             }
         });
 }
@@ -66,23 +96,45 @@ function mainNetRollup(api_url, element_id) {
                 $.each(data.result, function (index, value) {
                     const date = new Date(value.timeStamp * 1000);
 
-                    html += '<tr>'+
-                                '<td>'
-                                    +value.blockNumber+
-                                '</td>'+
-                                '<td>'
-                                    +value.hash.toString()+
-                                '</td>'+
-                                '<td>'
-                                    +value.gasUsed+
-                                '</td>'+
-                                '<td>'+
-                                    '3.5 ETH'+
-                                '</td>'+
-                                '<td>'
-                                    +date.toLocaleTimeString()+
-                                '</td>'+
-                            '</tr>';
+                    if (searchToken != '') {
+                        if (searchToken == value.hash.toString()) {
+                            html += '<tr>'+
+                                    '<td>'
+                                        +value.blockNumber+
+                                    '</td>'+
+                                    '<td>'
+                                        +value.hash.toString()+
+                                    '</td>'+
+                                    '<td>'
+                                        +value.gasUsed+
+                                    '</td>'+
+                                    '<td>'+
+                                        '3.5 ETH'+
+                                    '</td>'+
+                                    '<td>'
+                                        +date.toLocaleTimeString()+
+                                    '</td>'+
+                                '</tr>';
+                        }
+                    } else {
+                        html += '<tr>'+
+                                    '<td>'
+                                        +value.blockNumber+
+                                    '</td>'+
+                                    '<td>'
+                                        +value.hash.toString()+
+                                    '</td>'+
+                                    '<td>'
+                                        +value.gasUsed+
+                                    '</td>'+
+                                    '<td>'+
+                                        '3.5 ETH'+
+                                    '</td>'+
+                                    '<td>'
+                                        +date.toLocaleTimeString()+
+                                    '</td>'+
+                                '</tr>';
+                    }
 
                 });
 
@@ -90,7 +142,7 @@ function mainNetRollup(api_url, element_id) {
                     html = '<tr><td colspan="5">No records found!</td></tr>'
                 }
 
-                $('#main-table').html(html);
+                $('#main-table tbody').html(html);
 
             }
         });

@@ -1,5 +1,6 @@
  // testnet token
  $('#testnet-token').click(function () {
+    testNetTab = 'token';
 
      $('#test-token tbody').html("");
 
@@ -13,6 +14,8 @@
 
  // testnet rollups
  $('#testnet-rollup').click(function () {
+    testNetTab = 'rollup';
+
      $('#test-token tbody').html("");
      let element_id = '#test-token'
      let api_url = "https://api-ropsten.etherscan.io/api?module=account&action=txlistinternal&address=0xFa32465ddFC3628F8723fe7941F035a494bfbFf2&startblock=0&endblock=999999999&sort=asc&apikey=9439IK1Y6D6UZFBN298YATMAAAXD3XSIVS"
@@ -32,37 +35,54 @@
                  $.each(data.result, function (index, value) {
                      const date = new Date(value.timeStamp * 1000);
 
-                     html += '<tr>'+
-                                '<td>'+
-                                    +value.blockNumber+
-                                '</td>'+
-                                '<td>'
-                                    +value.hash.toString()+
-                                '</td>'+
-                                '<td>'+
-                                    +value.gasUsed+
-                                '</td>'+
-                                '<td>'+
-                                    '3.5 ETH'+
-                                '</td>'+
-                                '<td>'
-                                    +date.toLocaleTimeString()+
-                                '</td>'+
-                            '</tr>';
-                     
-                     if (!$.inArray(tokens,value)) {
-                        tokens.push(value);
+                    if (searchToken != '') {
+                        if (searchToken == value.hash.toString()) {
+                            html += '<tr>'+
+                                    '<td>'+
+                                        +value.blockNumber+
+                                    '</td>'+
+                                    '<td>'
+                                        +value.hash.toString()+
+                                    '</td>'+
+                                    '<td>'+
+                                        +value.gasUsed+
+                                    '</td>'+
+                                    '<td>'+
+                                        '3.5 ETH'+
+                                    '</td>'+
+                                    '<td>'
+                                        +date.toLocaleTimeString()+
+                                    '</td>'+
+                                '</tr>';
+                        }
+                    } else {
+                        html += '<tr>'+
+                                    '<td>'+
+                                        +value.blockNumber+
+                                    '</td>'+
+                                    '<td>'
+                                        +value.hash.toString()+
+                                    '</td>'+
+                                    '<td>'+
+                                        +value.gasUsed+
+                                    '</td>'+
+                                    '<td>'+
+                                        '3.5 ETH'+
+                                    '</td>'+
+                                    '<td>'
+                                        +date.toLocaleTimeString()+
+                                    '</td>'+
+                                '</tr>';
                     }
-
                 });
 
                 if (data.result.length == 0) {
                     html = '<tr><td colspan="5">No records found!</td></tr>'
+                } else if (html == '') {
+                    html = '<tr><td colspan="5">No records found!</td></tr>'
                 }
 
                  $('#test-token').append(html);
-
-                //  tokens.push(data.result)
              }
          });
  }
@@ -80,29 +100,50 @@
                      
                     const date = new Date(value.timeStamp * 1000);
             
-                     html += '<tr>'+
-                                '<td>'+
-                                    +value.blockNumber+
-                                '</td>'+
-                                '<td>'
-                                    +value.hash.toString()+
-                                '</td>'+
-                                '<td>'+
-                                    +value.gasUsed+
-                                '</td>'+
-                                '<td>'+
-                                    '3.5 ETH'+
-                                '</td>'+
-                                '<td>'
-                                    +date.toLocaleTimeString()+
-                                '</td>'+
-                         '</tr>';
-                     
-                    console.log(html);
-
+                    if (searchToken != '') {
+                        if (searchToken == value.hash.toString()) {
+                            html += '<tr>'+
+                                    '<td>'+
+                                        +value.blockNumber+
+                                    '</td>'+
+                                    '<td>'
+                                        +value.hash.toString()+
+                                    '</td>'+
+                                    '<td>'+
+                                        +value.gasUsed+
+                                    '</td>'+
+                                    '<td>'+
+                                        '3.5 ETH'+
+                                    '</td>'+
+                                    '<td>'
+                                        +date.toLocaleTimeString()+
+                                    '</td>'+
+                            '</tr>';
+                        }
+                    } else {
+                        html += '<tr>'+
+                                    '<td>'+
+                                        +value.blockNumber+
+                                    '</td>'+
+                                    '<td>'
+                                        +value.hash.toString()+
+                                    '</td>'+
+                                    '<td>'+
+                                        +value.gasUsed+
+                                    '</td>'+
+                                    '<td>'+
+                                        '3.5 ETH'+
+                                    '</td>'+
+                                    '<td>'
+                                        +date.toLocaleTimeString()+
+                                    '</td>'+
+                            '</tr>';
+                    }
                 });
 
                 if (data.result.length == 0) {
+                    html = '<tr><td colspan="5">No records found!</td></tr>'
+                } else if (html == '') {
                     html = '<tr><td colspan="5">No records found!</td></tr>'
                 }
                  

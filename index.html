@@ -67,6 +67,7 @@
                             </li>
                         </ul>
 
+                        <!-- Main Content -->
                         <div class="tab-content" id="myTabContent">
                             <!-- test net -->
                             <div class="tab-pane fade" id="testnet" role="tabpanel"
@@ -238,6 +239,12 @@
     <script src="js/etcpeg.js"></script>
     <script>
         var tokens = [];
+        var searchToken = '';
+
+        var mainNetTab = 'token';
+        var testNetTab = 'token';
+        var etcTab = 'token';
+        var bnbTab = 'token';
 
         $(document).ready(function () {
 
@@ -290,73 +297,33 @@
 
         // search button
         $('.custom-button').click(function () {
-
             var hashNumber = $('.custom-search').val();
-            //console.log(hashNumber)
-            var foundHash = $.grep(tokens, function (v) {
-                console.log(v);
-                return v.hash === hashNumber
-            });
-            $('#mainnet-card').html("");
-            var html = ''
-            console.log(foundHash);
-            $.each(foundHash, function (index, value) {
+            
+            searchToken = hashNumber;
 
-                html += '<div class="card no-border mb-3 bg-dark1">' +
-                    '<div class="card-body bg-dark1 mb-3">' +
-                    '<div class="row mb-2">' +
-                    '<div class="col-sm-2 col-md-2">' +
-                    '<div class="row">' +
-                    '<div class="col-sm-12 col-md-12">' +
-                    '<h6 class="text-white text-center">#' + value.blockNumber + '</h6>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="row">' +
-                    '<div class="col-sm-12 col-md-12">' +
-                    '<h6 class="text-purple text-center">Block</h6>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="col-sm-6 col-md-6">' +
-                    '<div class="row">' +
-                    '<div class="col-sm-4 col-md-4">' +
-                    '<p class="text-light-p">3 Transactions </p>' +
-                    '</div>' +
-                    '<div class="col-sm-4 col-md-4">' +
-                    '<p class="text-light-p"> 1,840 bytes </p>' +
-                    '</div>' +
-                    '<div class="col-sm-4 col-md-4">' +
-                    '<p class="text-light-p">35 seconds ago </p>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="row">' +
-                    '<div class="col-sm-2 col-md-2">' +
-                    '<p class="text-light-p text-left">Miner</p>' +
-                    '</div>' +
-                    '<div class="col-sm-10 col-md-10">' +
-                    '<h6 class="text-purple text-center hash">' + value.hash + '</h6>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="row">' +
-                    '<div class="col-sm-4 col-md-4">' +
-                    '<p class="text-light-p text-left">Reward</p>' +
-                    '</div>' +
-                    '<div class="col-sm-4 col-md-4">' +
-                    '<p class="text-light-p text-center">3.2 ETH</p>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="col-sm-4 col-md-4">' +
-                    '<p class="text-light-p text-right">' + value.gasUsed + ' Gas Used</p>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>';
+            if (mainNetTab == 'rollup') {
+                $('#mainnet-rollup').trigger('click');
+            } else if (mainNetTab == 'token') {
+                $('#mainnet-token').trigger('click');
+            }
 
+            if (testNetTab == 'rollup') {
+                $('#testnet-rollup').trigger('click');
+            } else if (testNetTab == 'token') {
+                $('#testnet-token').trigger('click');
+            }
 
-            });
+            if (etcTab == 'rollup') {
+                $('#etcpeg-rollup').trigger('click');
+            } else if (etcTab == 'token') {
+                $('#etcpeg-token').trigger('click');
+            }
 
-            $('#mainnet-card').append(html);
+            if (bnbTab == 'rollup') {
+                $('#bnbpeg-rollup').trigger('click');
+            } else if (bnbTab == 'token') {
+                $('#bnbpeg-token').trigger('click');
+            }
         });
     </script>
 </body>
